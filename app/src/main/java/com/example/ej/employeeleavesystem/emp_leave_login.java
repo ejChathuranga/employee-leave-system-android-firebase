@@ -42,7 +42,8 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
         switch (v.getId()){
             case R.id.btn_login:{
 //                Toast.makeText(emp_leave_login.this, "Yeah", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(emp_leave_login.this, )
+                Intent homeIntent = new Intent(emp_leave_login.this, emp_leave_home.class);
+                startActivity(homeIntent);
 
                 break;
             }

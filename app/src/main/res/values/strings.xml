@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Employee Leave System</string>
+    <string name="title_activity_emp_leave_home">emp_leave_home</string>
+    <string name="tab_text_1">New</string>
+    <string name="tab_text_2">Old</string>
+    <string name="tab_text_3">Approved</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
