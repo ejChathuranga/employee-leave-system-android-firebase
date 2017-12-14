@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context="com.example.ej.employeeleavesystem.emp_leave_forgot">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:foregroundGravity="center"
+        app:srcCompat="@drawable/forgot_password" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="279dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="e-mail"
+            android:inputType="textWebEmailAddress" />
+
+        <EditText
+            android:id="@+id/et_recoveryKey"
+            android:layout_width="279dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="recovery key"
+            android:inputType="text|number" />
+
+        <LinearLayout
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_createNewAcc"
+                android:layout_width="335dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Need to create new account?" />
+
+            <Button
+                android:id="@+id/btn_recover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Recover" />
+
+            <TextView
+                android:id="@+id/tv_oldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>
