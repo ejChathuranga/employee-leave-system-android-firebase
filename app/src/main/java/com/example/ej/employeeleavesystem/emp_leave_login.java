@@ -29,7 +29,7 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
         empUsername = (EditText) findViewById(R.id.et_username);
         empPass = (EditText) findViewById(R.id.et_pass);
         empForgotPass = (TextView)findViewById(R.id.tv_forgot);
-        empNewAcc = (TextView)findViewById(R.id.tv_newAccount);
+        empNewAcc = (TextView)findViewById(R.id.tv_firstNewAccount);
         empLogin = (Button) findViewById(R.id.btn_login);
 
         empLogin.setOnClickListener(this);
@@ -41,21 +41,15 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_login:{
-//                Toast.makeText(emp_leave_login.this, "Yeah", Toast.LENGTH_SHORT).show();
-                Intent homeIntent = new Intent(emp_leave_login.this, emp_leave_home.class);
-                startActivity(homeIntent);
-
+                startActivity(new Intent(emp_leave_login.this, emp_leave_home.class));
                 break;
             }
-
             case R.id.tv_forgot:{
                 Intent forgotIntent = new Intent(emp_leave_login.this, emp_leave_forgot.class);
                 startActivity(forgotIntent);
-
                 break;
             }
-
-            case R.id.tv_newAccount:{
+            case R.id.tv_firstNewAccount:{
                 Intent newAccIntent = new Intent(emp_leave_login.this, emp_leave_emp_regiter.class);
                 startActivity(newAccIntent);
                 break;

@@ -22,7 +22,10 @@
         <activity
             android:name=".emp_leave_home"
             android:label="@string/title_activity_emp_leave_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".emp_leave_home" >
+
+        </activity>
     </application>
 
 </manifest>

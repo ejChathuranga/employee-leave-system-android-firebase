@@ -52,9 +52,10 @@ tools:context="com.example.ej.employeeleavesystem.emp_leave_login">
 
             <TextView
                 android:id="@+id/tv_forgot"
-                android:layout_width="335dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
                 android:text="Forgot Password ?"
                 android:textAppearance="@style/TextAppearance.AppCompat" />
 
@@ -64,12 +65,19 @@ tools:context="com.example.ej.employeeleavesystem.emp_leave_login">
                 android:layout_height="wrap_content"
                 android:text="Login" />
 
-            <TextView
-                android:id="@+id/tv_newAccount"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Need a new account?" />
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_firstNewAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Accout" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
