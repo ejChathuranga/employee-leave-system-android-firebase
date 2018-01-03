@@ -92,14 +92,6 @@ tools:context="com.example.ej.employeeleavesystem.emp_leave_emp_regiter">
             android:hint="Mobile No:"
             android:inputType="phone" />
 
-        <EditText
-            android:id="@+id/et_bday"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Birth day"
-            android:inputType="date" />
-
         <LinearLayout
             android:layout_width="280dp"
             android:layout_height="match_parent"
