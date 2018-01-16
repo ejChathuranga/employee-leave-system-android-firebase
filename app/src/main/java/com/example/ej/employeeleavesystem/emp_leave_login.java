@@ -45,13 +45,11 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
                 break;
             }
             case R.id.tv_forgot:{
-                Intent forgotIntent = new Intent(emp_leave_login.this, emp_leave_forgot.class);
-                startActivity(forgotIntent);
+                startActivity(new Intent(emp_leave_login.this, emp_leave_forgot.class));
                 break;
             }
             case R.id.tv_firstNewAccount:{
-                Intent newAccIntent = new Intent(emp_leave_login.this, emp_leave_emp_regiter.class);
-                startActivity(newAccIntent);
+                startActivity( new Intent(emp_leave_login.this, emp_leave_emp_regiter.class));
                 break;
             }
         }

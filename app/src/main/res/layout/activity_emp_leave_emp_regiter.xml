@@ -60,6 +60,13 @@ tools:context="com.example.ej.employeeleavesystem.emp_leave_emp_regiter">
             android:entries="@array/emp_role" />
 
 
+        <Spinner
+            android:id="@+id/spinner_team"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:entries="@array/emp_role" />
+
         <EditText
             android:id="@+id/et_nic"
             android:layout_width="match_parent"
