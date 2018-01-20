@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.example.ej.employeeleavesystem.emp_leave_tabs.SectionPageAdapter;
 import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_approve;
+import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_lead_requests;
 import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_new;
 import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_old;
 
@@ -38,6 +39,7 @@ public class emp_leave_home extends AppCompatActivity {
         mSectionPageAdapter.addFragment(new emp_leave_home_approve(), "Approved");
         mSectionPageAdapter.addFragment(new emp_leave_home_new(), "New");
         mSectionPageAdapter.addFragment(new emp_leave_home_old(), "Old");
+        mSectionPageAdapter.addFragment(new emp_leave_home_lead_requests(), "Request");
         mViewPager.setAdapter(mSectionPageAdapter);
     }
 }

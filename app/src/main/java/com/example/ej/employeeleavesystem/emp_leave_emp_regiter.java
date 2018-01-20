@@ -11,6 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -28,11 +32,11 @@ import java.nio.file.Files;
 
 public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnClickListener {
     private Button btnReg;
-    private EditText etUsername, etPass, etFullname, etNic, etEemail, etAddress, etMobile;
-    private Spinner spinnerRole, spinnerTeam;
+    private EditText etUsername, etPass, etFullname, etNic, etEemail, etAddress, etMobile, etTeam;
+    private Spinner spinnerRole;
 
 
-    private String sendURL = "http://sampathisuru592.000webhostapp.com/leave_create_user.php";
+    private String sendURL = "http://10.0.2.2/isuru_leave/leave_create_user.php";
 
     String username ,pass ,fullname ,role, nic, email ,address, mobile, team;
 
@@ -47,7 +51,7 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
         etPass = findViewById(R.id.et_pass);
         etFullname = findViewById(R.id.et_fullName);
         spinnerRole = findViewById(R.id.spinner_role);
-        spinnerTeam = findViewById(R.id.spinner_team);
+        etTeam = findViewById(R.id.et_team);
         etNic = findViewById(R.id.et_nic);
         etEemail = findViewById(R.id.et_email);
         etAddress = findViewById(R.id.et_address);
@@ -72,7 +76,7 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
         pass = etPass.getText().toString().trim();
         fullname = etFullname.getText().toString().trim();
         role = spinnerRole.getSelectedItem().toString();
-        team = spinnerTeam.getSelectedItem().toString();
+        team = etTeam.getText().toString();
         nic = etNic.getText().toString().trim();
         email = etEemail.getText().toString();
         address = etAddress.getText().toString();
@@ -90,6 +94,35 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
     }
 
     class addSoldierAsync extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Object obj = JSONValue.parse(s);
+            JSONObject jsonObject = (JSONObject) obj;
+
+            Boolean success = (Boolean) jsonObject.get("success");
+            Boolean isAvailable = (Boolean) jsonObject.get("isAvailable");
+
+            if(isAvailable){
+                if(success){
+                    etNic.setText("");
+                    etUsername.setText("");
+                    etFullname.setText("");
+                    etTeam.setText("");
+                    etEemail.setText("");
+                    etAddress.setText("");
+                    etMobile.setText("");
+                    etPass.setText("");
+                }else {
+                    Toast.makeText(emp_leave_emp_regiter.this, "Please check the network connection", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                etUsername.setError("Username not available");
+                Toast.makeText(emp_leave_emp_regiter.this, "User name is not available", Toast.LENGTH_SHORT).show();
+            }
+
+
+        }
 
         @Override
         protected String doInBackground(String... strings) {
@@ -165,7 +198,7 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
             }
             Log.e("JSONParseHTTP ",response);
 
-            return null;
+            return response;
         }
     }
 }

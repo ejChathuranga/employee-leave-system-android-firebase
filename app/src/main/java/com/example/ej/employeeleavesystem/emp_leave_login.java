@@ -41,7 +41,14 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_login:{
-                startActivity(new Intent(emp_leave_login.this, emp_leave_home.class));
+                if(!isEmpty(empUsername)|| !isEmpty(empPass)){
+                    startActivity(new Intent(emp_leave_login.this, emp_leave_home.class));
+
+                }else{
+                    empUsername.setError("Please fill-out");
+                    empPass.setError("Please fill-out");
+                    Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
             case R.id.tv_forgot:{
@@ -53,6 +60,10 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
                 break;
             }
         }
+    }
+
+    private Boolean isEmpty(EditText editText){
+        return editText.getText().toString().trim().length()==0;
     }
 
 }
