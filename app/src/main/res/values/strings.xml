@@ -15,7 +15,7 @@
     <string-array name="emp_role">
         <item>Manager</item>
         <item>Lead</item>
-        <item>employee</item>
+        <item>Employee</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
