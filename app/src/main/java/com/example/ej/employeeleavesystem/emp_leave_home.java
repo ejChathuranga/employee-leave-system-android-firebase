@@ -30,9 +30,9 @@ public class emp_leave_home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emp_leave_home);
-        Log.d("TAG","onCreate: Loading..");
         myPreferences = getSharedPreferences(emp_leave_login.myPREF,0);
         USER_ROLE = myPreferences.getString(emp_leave_login.PREF_ROLE,"");
+        setTitle("Welcome "+USER_ROLE +": "+myPreferences.getString(emp_leave_login.PREF_USERNAME,""));
 
         mSectionPageAdapter = new SectionPageAdapter(getSupportFragmentManager());
 
@@ -48,21 +48,25 @@ public class emp_leave_home extends AppCompatActivity {
 
         switch (USER_ROLE){
             case USER_MANEGER:{
-
+                mSectionPageAdapter.addFragment(new emp_leave_home_approve(), "Approved");
+                mSectionPageAdapter.addFragment(new emp_leave_home_old(), "Old");
+                mSectionPageAdapter.addFragment(new emp_leave_home_lead_requests(), "Request");
                 break;
             }
             case USER_LEAD:{
+                mSectionPageAdapter.addFragment(new emp_leave_home_approve(), "Approved");
+                mSectionPageAdapter.addFragment(new emp_leave_home_new(), "New");
+                mSectionPageAdapter.addFragment(new emp_leave_home_old(), "Old");
+                mSectionPageAdapter.addFragment(new emp_leave_home_lead_requests(), "Request");
                 break;
             }
             case USER_EMPLOYEE:{
+                mSectionPageAdapter.addFragment(new emp_leave_home_old(), "Old");
+                mSectionPageAdapter.addFragment(new emp_leave_home_new(), "New");
+                mSectionPageAdapter.addFragment(new emp_leave_home_approve(), "Approved");
                 break;
             }
         }
-
-        mSectionPageAdapter.addFragment(new emp_leave_home_approve(), "Approved");
-        mSectionPageAdapter.addFragment(new emp_leave_home_new(), "New");
-        mSectionPageAdapter.addFragment(new emp_leave_home_old(), "Old");
-        mSectionPageAdapter.addFragment(new emp_leave_home_lead_requests(), "Request");
         mViewPager.setAdapter(mSectionPageAdapter);
     }
 }

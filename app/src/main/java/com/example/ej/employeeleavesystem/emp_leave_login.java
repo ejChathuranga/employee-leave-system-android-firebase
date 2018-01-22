@@ -201,4 +201,10 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
         return editText.getText().toString().trim().length()==0;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        empUsername.setText("");
+        empPass.setText("");
+    }
 }

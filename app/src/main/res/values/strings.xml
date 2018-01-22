@@ -7,6 +7,12 @@
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="request_a_leave">Please fill the form</string>
+
+    <string name="btn_not_approved">not \n approved</string>
+    <string name="alert_title_not_approved">CONFIRM APPROVE</string>
+    <string name="alert_msg_not_approved">Are you sure want approve employee request</string>
+
+
     <string-array name="leave_types">
         <item>Annual</item>
         <item>Medical</item>
