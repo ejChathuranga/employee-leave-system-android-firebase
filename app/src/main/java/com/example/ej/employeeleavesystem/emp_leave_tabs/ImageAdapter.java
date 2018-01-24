@@ -52,6 +52,9 @@ public class ImageAdapter extends BaseAdapter {
             TextView textView4 = gridView.findViewById(R.id.tvEndDate);
             textView4.setText(gridItem.get(position).listEndDate);
 
+            TextView textView5 = gridView.findViewById(R.id.tvRequestID);
+            textView5.setText(gridItem.get(position).listRequestID);
+
 //            // set value into textview
 //            TextView textView1 = (TextView) gridView.findViewById(R.id.tvMissionName);
 //            textView1.setText(gridItem.get(position).listName);

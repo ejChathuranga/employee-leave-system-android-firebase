@@ -10,13 +10,15 @@ public class GridItem {
     public String listType;
     public String listStartDate;
     public String listEndDate;
+    public String listRequestID;
 
-    public GridItem(String listFullName, String listReason, String listType, String listStartDate, String listEndDate) {
+    public GridItem(String listFullName, String listReason, String listType, String listStartDate, String listEndDate, String listRequestID) {
         this.listFullName = listFullName;
         this.listReason = listReason;
         this.listType = listType;
         this.listStartDate = listStartDate;
         this.listEndDate = listEndDate;
+        this.listRequestID = listRequestID;
 
     }
 }
