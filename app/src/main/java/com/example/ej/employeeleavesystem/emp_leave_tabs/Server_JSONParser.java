@@ -25,7 +25,7 @@ public class Server_JSONParser {
     static JSONArray objArray = null;
     static String json = "";
 
-    public JSONArray getJSONFromUrl(String url) {
+    public static JSONArray getJSONFromUrl(String url) {
 
         // Making HTTP request
         try {

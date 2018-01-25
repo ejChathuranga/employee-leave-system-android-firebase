@@ -23,25 +23,22 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvFullName"
-                    style="@android:style/Widget.Holo.Light.TextView"
+                    android:id="@+id/tvApprovedBy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="3dp"
-                    android:paddingLeft="2dp"
+                    android:background="@color/common_google_signin_btn_text_light_disabled"
+                    android:paddingLeft="3dp"
                     android:text="TextView"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:clickable="false"
-                    android:focusable="false" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvReason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:clickable="false"
                     android:focusable="false"
-                    android:paddingLeft="2dp"
+                    android:paddingLeft="3dp"
                     android:text="TextView" />
 
             </LinearLayout>
@@ -94,14 +91,6 @@
                     android:text="TextView"
                     android:clickable="false"
                     android:focusable="false"/>
-
-                <TextView
-                    android:id="@+id/tvApprovedBy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="TextView" />
 
             </LinearLayout>
         </LinearLayout>

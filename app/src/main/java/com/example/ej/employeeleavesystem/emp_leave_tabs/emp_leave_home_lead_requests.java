@@ -2,7 +2,6 @@ package com.example.ej.employeeleavesystem.emp_leave_tabs;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,14 +15,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ej.employeeleavesystem.R;
-import com.example.ej.employeeleavesystem.emp_leave_home;
 import com.example.ej.employeeleavesystem.emp_leave_login;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,12 +116,15 @@ public class emp_leave_home_lead_requests extends Fragment {
                 for (int i = 0; i < all_list.length(); i++) {
                     org.json.JSONObject list_item = all_list.getJSONObject(i);
                     String listFullName = list_item.getString("empID");
-                    String listReason = list_item.getString("reason");
-                    String listType = list_item.getString("leaveType");
-                    String listStartDate = list_item.getString("startDate");
-                    String listEndDate = list_item.getString("endDate");
-                    String listRequestID = list_item.getString("id");
-                    items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listRequestID));
+                    if (!USER_NAME.equals(listFullName)) {
+                        String listReason = list_item.getString("reason");
+                        String listType = list_item.getString("leaveType");
+                        String listStartDate = list_item.getString("startDate");
+                        String listEndDate = list_item.getString("endDate");
+                        String listRequestID = list_item.getString("id");
+                        items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listRequestID));
+
+                    }
                     // showMessg(listName);
                 }
                 //  Toast.makeText(this, listName,Toast.LENGTH_LONG);

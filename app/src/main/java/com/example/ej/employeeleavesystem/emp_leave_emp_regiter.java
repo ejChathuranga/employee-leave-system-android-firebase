@@ -1,16 +1,22 @@
 package com.example.ej.employeeleavesystem;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ej.employeeleavesystem.emp_leave_tabs.Server_JSONParser;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
@@ -27,18 +33,22 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.file.Files;
+
+import static android.widget.AdapterView.*;
 
 
 public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnClickListener {
+
     private Button btnReg;
     private EditText etUsername, etPass, etFullname, etNic, etEemail, etAddress, etMobile, etTeam;
     private Spinner spinnerRole;
 
+    private static final String NEW_ROLE="Manager";
 
     private String sendURL = "http://10.0.2.2/isuru_leave/leave_create_user.php";
+    private String getInfoURL = "http://10.0.2.2/isuru_leave/leave_create_user_get_role.php";
 
-    String username ,pass ,fullname ,role, nic, email ,address, mobile, team;
+    private String username ,pass ,fullname ,role, nic, email ,address, mobile, team;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +67,23 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
         etAddress = findViewById(R.id.et_address);
         etMobile = findViewById(R.id.et_mobileNo);
 
-        btnReg.setOnClickListener(this);
 
+        btnReg.setOnClickListener(this);
+        spinnerRole.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+                String role = spinnerRole.getSelectedItem().toString();
+                if(NEW_ROLE.equals(role))
+                    new checkRole().execute();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 
     }
 
@@ -67,6 +92,10 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
         switch (v.getId()){
             case R.id.btn_reg: {
                 addEmployee();
+                break;
+            }
+            case R.id.spinner_role:{
+                Toast.makeText(this, "Selected", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -92,6 +121,47 @@ public class emp_leave_emp_regiter extends AppCompatActivity implements View.OnC
 
 
     }
+
+    class checkRole extends AsyncTask<Void, Void, Boolean> {
+
+        Boolean CAN = true;
+
+        @Override
+        protected void onPostExecute(Boolean aVoid) {
+            super.onPostExecute(aVoid);
+            if(!CAN){
+                TextView errorText = (TextView)spinnerRole.getSelectedView();
+                errorText.setError("");
+                errorText.setTextColor(Color.RED);//just to highlight that this is an error
+                errorText.setText("You can't register as MANAGER");
+            }
+
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+
+            Server_JSONParser jsonParser = new Server_JSONParser();
+            JSONArray all_list = jsonParser.getJSONFromUrl(getInfoURL);
+
+            try {
+                for (int i = 0; i < all_list.length(); i++) {
+                    org.json.JSONObject list_item = all_list.getJSONObject(i);
+                    String Rrole = list_item.getString("role");
+                    if(NEW_ROLE.equals(Rrole)){
+                        CAN = false;
+                        break;
+                    }
+                }
+                //  Toast.makeText(this, listName,Toast.LENGTH_LONG);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.e("--- REG ROLE ----",""+CAN);
+            return CAN;
+        }
+    }
+
 
     class addSoldierAsync extends AsyncTask<String, String, String> {
         @Override
