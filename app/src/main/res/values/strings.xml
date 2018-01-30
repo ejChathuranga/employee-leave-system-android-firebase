@@ -10,7 +10,9 @@
 
     <string name="btn_not_approved">not \n approved</string>
     <string name="alert_title_not_approved">CONFIRM APPROVE</string>
-    <string name="alert_msg_not_approved">Are you sure want approve employee request</string>
+    <string name="alert_msg_not_approved">DO you want to approve employee request</string>
+    <string name="alert_msg_logout">Are you sure to logout?</string>
+    <string name="alert_msg_logout_title">Logout?</string>
 
 
     <string-array name="leave_types">

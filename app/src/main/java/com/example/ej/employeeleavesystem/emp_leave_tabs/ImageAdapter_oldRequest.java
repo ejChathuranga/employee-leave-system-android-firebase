@@ -1,6 +1,7 @@
 package com.example.ej.employeeleavesystem.emp_leave_tabs;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +52,7 @@ public class ImageAdapter_oldRequest extends BaseAdapter {
             textView4.setText(gridItem.get(position).listEndDate);
 
             TextView textView5 = gridView.findViewById(R.id.tvApprovedBy);
-            textView5.setText("Approved by "+gridItem.get(position).listApprovedBy);
-
+            textView5.setText("Old Request");
 
         } else {
             gridView = (View) convertView;

@@ -76,14 +76,18 @@ public class emp_leave_home_approve extends Fragment {
             try {
                 for (int i = 0; i < all_list.length(); i++) {
                     org.json.JSONObject list_item = all_list.getJSONObject(i);
+                    String listIsApproved = list_item.getString("approve");
                     String listApprovedBy = list_item.getString("approvedBy");
-                    if (USER_NAME.equals(listApprovedBy)) {
+
+                    if(USER_NAME.equals(listApprovedBy)){
                         String listFullName = list_item.getString("empID");
-                        String listReason = list_item.getString("reason");
-                        String listType = list_item.getString("leaveType");
-                        String listStartDate = list_item.getString("startDate");
-                        String listEndDate = list_item.getString("endDate");
-                        items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listApprovedBy));
+                        Log.e(TAG,"approved list will goes");
+                            String listReason = list_item.getString("reason");
+                            String listType = list_item.getString("leaveType");
+                            String listStartDate = list_item.getString("startDate");
+                            String listEndDate = list_item.getString("endDate");
+
+                            items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listApprovedBy));
 
                     }
                     // showMessg(listName);

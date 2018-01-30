@@ -76,14 +76,14 @@ public class emp_leave_home_old extends Fragment {
                 for (int i = 0; i < all_list.length(); i++) {
                     org.json.JSONObject list_item = all_list.getJSONObject(i);
                     String listFullName = list_item.getString("empID");
-
                     if(USER_NAME.equals(listFullName)){
-                        String listReason = list_item.getString("reason");
-                        String listType = list_item.getString("leaveType");
-                        String listStartDate = list_item.getString("startDate");
-                        String listEndDate = list_item.getString("endDate");
                         String approvedBy = list_item.getString("approvedBy");
-                        items.add(new GridItem_myOldLeave(listReason, listType, listStartDate, listEndDate, approvedBy));
+                            String listReason = list_item.getString("reason");
+                            String listType = list_item.getString("leaveType");
+                            String listStartDate = list_item.getString("startDate");
+                            String listEndDate = list_item.getString("endDate");
+                            items.add(new GridItem_myOldLeave(listReason, listType, listStartDate, listEndDate, approvedBy));
+
                     }
                     // showMessg(listName);
                 }
