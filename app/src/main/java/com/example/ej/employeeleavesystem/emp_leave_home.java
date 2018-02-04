@@ -20,6 +20,7 @@ import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_approve;
 import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_lead_requests;
 import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_new;
 import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_old;
+import com.example.ej.employeeleavesystem.emp_leave_tabs.emp_leave_home_my_approved_request;
 
 public class emp_leave_home extends AppCompatActivity {
     private static final String  TAG = "emp_leave_home";
@@ -97,7 +98,7 @@ public class emp_leave_home extends AppCompatActivity {
             case USER_EMPLOYEE:{
                 mSectionPageAdapter.addFragment(new emp_leave_home_old(), "Old");
                 mSectionPageAdapter.addFragment(new emp_leave_home_new(), "New");
-//                mSectionPageAdapter.addFragment(new emp_leave_home_approve(), "Approved");
+                mSectionPageAdapter.addFragment(new emp_leave_home_my_approved_request(), "Approved");
                 break;
             }
         }

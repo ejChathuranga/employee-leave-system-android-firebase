@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.ej.employeeleavesystem.R;
 import com.example.ej.employeeleavesystem.emp_leave_login;
@@ -40,6 +41,8 @@ public class emp_leave_home_approve extends Fragment {
     private String requestID;
     private static String USER_NAME;
     private View view;
+    private TextView refresh;
+
     public emp_leave_home_approve(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,10 +57,20 @@ public class emp_leave_home_approve extends Fragment {
 
         myPreferences = this.getActivity().getSharedPreferences(emp_leave_login.myPREF,0);
         USER_NAME = myPreferences.getString(emp_leave_login.PREF_USERNAME,"");
+        gridView = view.findViewById(R.id.gridviewApprovedByme);
+        refresh = view.findViewById(R.id.tvRefersh);
 
         context = this.getContext();
         loadGridView(view);
         this.view = view;
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gridView.invalidateViews();
+                loadGridView(v);
+            }
+        });
     }
 
     private void loadGridView(View view) {
@@ -68,6 +81,7 @@ public class emp_leave_home_approve extends Fragment {
             StrictMode.setThreadPolicy(policy);
             //your codes here
             ArrayList<GridItem> items = new ArrayList<>();
+
 
 
             Server_JSONParser jsonParser = new Server_JSONParser();
@@ -81,13 +95,12 @@ public class emp_leave_home_approve extends Fragment {
 
                     if(USER_NAME.equals(listApprovedBy)){
                         String listFullName = list_item.getString("empID");
-                        Log.e(TAG,"approved list will goes");
                             String listReason = list_item.getString("reason");
                             String listType = list_item.getString("leaveType");
                             String listStartDate = list_item.getString("startDate");
                             String listEndDate = list_item.getString("endDate");
 
-                            items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listApprovedBy));
+                            items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listIsApproved));
 
                     }
                     // showMessg(listName);
@@ -98,7 +111,6 @@ public class emp_leave_home_approve extends Fragment {
             }
 
 
-            gridView = (GridView) view.findViewById(R.id.gridviewApprovedByme);
             gridView.setAdapter(new ImageAdapter_approvedBy(this.getActivity(), items));
 
 

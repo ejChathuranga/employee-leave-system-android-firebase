@@ -102,24 +102,29 @@ public class emp_leave_login extends AppCompatActivity implements View.OnClickLi
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-            Object obj = JSONValue.parse(s);
-            JSONObject jsonObject = (JSONObject) obj;
-
-            Boolean success = (Boolean) jsonObject.get("success");
-            String name = (String) jsonObject.get("name");
-            String role = (String) jsonObject.get("role");
-
-            editor.putString(PREF_USERNAME,username);
-            editor.putString(PREF_NAME,name);
-            editor.putString(PREF_ROLE,role);
-            editor.commit();
-
-            if(success){
-                startActivity(new Intent(emp_leave_login.this, emp_leave_home.class));
-                Toast.makeText(emp_leave_login.this, "Successfully logged", Toast.LENGTH_SHORT).show();
-
+            if(s.length()==0){
+                Toast.makeText(emp_leave_login.this, "Please enter valid details", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(emp_leave_login.this, "Please check network connection", Toast.LENGTH_SHORT).show();
+                Object obj = JSONValue.parse(s);
+                JSONObject jsonObject = (JSONObject) obj;
+
+                Boolean success = (Boolean) jsonObject.get("success");
+                String name = (String) jsonObject.get("name");
+                String role = (String) jsonObject.get("role");
+
+                editor.putString(PREF_USERNAME,username);
+                editor.putString(PREF_NAME,name);
+                editor.putString(PREF_ROLE,role);
+                editor.commit();
+
+                if(success){
+                    startActivity(new Intent(emp_leave_login.this, emp_leave_home.class));
+                    Toast.makeText(emp_leave_login.this, "Successfully logged", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Toast.makeText(emp_leave_login.this, "Please check network connection", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
 

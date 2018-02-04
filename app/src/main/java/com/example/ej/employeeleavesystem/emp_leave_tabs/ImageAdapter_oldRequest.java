@@ -1,5 +1,6 @@
 package com.example.ej.employeeleavesystem.emp_leave_tabs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
  */
 
 public class ImageAdapter_oldRequest extends BaseAdapter {
+    private static final String TAG = "adadpter_old request";
     private Context context;
     private final ArrayList<GridItem_myOldLeave> gridItem;
 
@@ -25,6 +27,7 @@ public class ImageAdapter_oldRequest extends BaseAdapter {
         this.gridItem = gridItem;
 
     }
+    @SuppressLint("ResourceAsColor")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context
@@ -52,7 +55,28 @@ public class ImageAdapter_oldRequest extends BaseAdapter {
             textView4.setText(gridItem.get(position).listEndDate);
 
             TextView textView5 = gridView.findViewById(R.id.tvApprovedBy);
-            textView5.setText("Old Request");
+            String isApproved = gridItem.get(position).listApprove;
+            String approvedBy = gridItem.get(position).listApprovedBy;
+            Log.e(TAG,isApproved+"\n");
+
+            if(isApproved.equals("NOT")){
+//                Log.e(TAG,isApproved+"in the not approved section\n");
+                textView5.setBackgroundResource(R.color.colorRed);
+                textView5.setTextColor(R.color.colorWhite);
+                textView5.setText("NOT APPROVED");
+            }else if(isApproved.equals("REJECT")){
+//                Log.e(TAG,isApproved+"in the not reject section\n");
+                textView5.setBackgroundResource(R.color.colorReject);
+                textView5.setTextColor(R.color.colorWhite);
+                textView5.setText("REJECTED");
+            }
+            else{
+//                Log.e(TAG,isApproved+" in the approved section\n");
+                textView5.setBackgroundResource(R.color.colorGreen);
+                textView5.setTextColor(R.color.colorWhite);
+                textView5.setText("APPROVED BY: "+approvedBy);
+
+            }
 
         } else {
             gridView = (View) convertView;

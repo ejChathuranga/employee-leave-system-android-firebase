@@ -3,15 +3,12 @@ package com.example.ej.employeeleavesystem.emp_leave_tabs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.ej.employeeleavesystem.R;
 import com.example.ej.employeeleavesystem.emp_leave_login;
@@ -21,44 +18,37 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-/**
- * Created by ej on 12/14/2017.
- */
+public class emp_leave_emp_leave_history extends AppCompatActivity {
 
-public class emp_leave_home_old extends Fragment {
-    private final String TAG = "OLD REQUEST OF MINE";
-    private String getInfoURL = "http://10.0.2.2/isuru_leave/leave_get_own_leave.php";
+    private static final String TAG = "emp_leave_history" ;
+    private String getInfoURL = "http://10.0.2.2/isuru_leave/leave_request_list.php";
 
-    private Context context;
     private SharedPreferences myPreferences;
+    private static String USER_NAME;
+    private Context context;
     private View view;
-    private String USER_NAME;
     private GridView gridView;
-    public View view1;
-
-    public emp_leave_home_old(){}
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_emp_leave_home_old, container, false);
-        return rootView;
-
-    }
+    private Bundle extra;
+    private String empID;
+    private TextView tvEmpID;
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        myPreferences = this.getActivity().getSharedPreferences(emp_leave_login.myPREF,0);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_emp_leave_emp_leave_history);
+
+        myPreferences = this.getSharedPreferences(emp_leave_login.myPREF,0);
         USER_NAME = myPreferences.getString(emp_leave_login.PREF_USERNAME,"");
+        extra = getIntent().getExtras();
+        tvEmpID = findViewById(R.id.tvEmpHistory);
 
-
-        context = this.getContext();
-        loadGridView(view);
-        this.view = view;
-
+        context = getBaseContext();
+        loadGridView();
     }
 
-    private void loadGridView(View view) {
+    private void loadGridView() {
+        empID = extra.getString("empID");
+        tvEmpID.setText("History of "+empID);
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
         Log.e(TAG,"Running....");
         if (SDK_INT > 8) {
@@ -76,7 +66,7 @@ public class emp_leave_home_old extends Fragment {
                 for (int i = 0; i < all_list.length(); i++) {
                     org.json.JSONObject list_item = all_list.getJSONObject(i);
                     String listFullName = list_item.getString("empID");
-                    if(USER_NAME.equals(listFullName)){
+                    if(empID.equals(listFullName)){
                         String approvedBy = list_item.getString("approvedBy");
                         Log.e(TAG, approvedBy);
                         String listReason = list_item.getString("reason");
@@ -95,11 +85,10 @@ public class emp_leave_home_old extends Fragment {
             }
 
 
-            gridView = (GridView) view.findViewById(R.id.gridviewOldLeave);
-            gridView.setAdapter(new ImageAdapter_oldRequest(this.getActivity(), items));
+            gridView = (GridView) findViewById(R.id.gridViewEmpHistory);
+            gridView.setAdapter(new ImageAdapter_oldRequest(this, items));
 
 
         }
     }
-
 }

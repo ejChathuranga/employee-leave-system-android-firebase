@@ -12,13 +12,15 @@ public class GridItem_myOldLeave {
     public String listStartDate;
     public String listEndDate;
     public String listApprovedBy;
+    public String listApprove;
 
-    public GridItem_myOldLeave(String listReason, String listType, String listStartDate, String listEndDate, String listApprovedBy) {
+    public GridItem_myOldLeave(String listReason, String listType, String listStartDate, String listEndDate, String listApprove, String listApprovedBy) {
         this.listReason = listReason;
         this.listType = listType;
         this.listStartDate = listStartDate;
         this.listEndDate = listEndDate;
         this.listApprovedBy = listApprovedBy;
+        this.listApprove = listApprove;
 
     }
 }

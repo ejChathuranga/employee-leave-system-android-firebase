@@ -1,10 +1,16 @@
 package com.example.ej.employeeleavesystem.emp_leave_tabs;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ej.employeeleavesystem.R;
@@ -17,6 +23,7 @@ import java.util.ArrayList;
 
 public class ImageAdapter_approvedBy extends BaseAdapter {
 
+    private static final String TAG = "ImageAdapter_ApproveBy";
     private Context context;
     private final ArrayList<GridItem> gridItem;
 
@@ -55,6 +62,29 @@ public class ImageAdapter_approvedBy extends BaseAdapter {
             // get layout from mobile.xml
             gridView = inflater.inflate(R.layout.layout_gridview_approved_by_me, null);
 
+            String isApprove = gridItem.get(position).listRequestID;
+//            Log.e(TAG,isApprove+"\n");
+            if(isApprove.equals("OK")){
+                LinearLayout linearLayout  = gridView.findViewById(R.id.linearLayout_approve);
+                Resources resources = gridView.getResources();
+                Drawable drawable = resources.getDrawable(R.drawable.approved_icon);
+                drawable.setAlpha(50);
+                drawable.setBounds(10,5,10,5);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    linearLayout.setBackground(drawable);
+                }
+
+            }if(isApprove.equals("REJECT")){
+                LinearLayout linearLayout  = gridView.findViewById(R.id.linearLayout_approve);
+                Resources resources = gridView.getResources();
+                Drawable drawable = resources.getDrawable(R.drawable.reject_icon);
+                drawable.setAlpha(50);
+                drawable.setBounds(10,5,10,5);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    linearLayout.setBackground(drawable);
+                }
+            }
+            
             TextView textView = gridView.findViewById(R.id.tvUsername);
             textView.setText(gridItem.get(position).listFullName);
 

@@ -2,6 +2,7 @@ package com.example.ej.employeeleavesystem.emp_leave_tabs;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,11 +47,13 @@ public class emp_leave_home_lead_requests extends Fragment {
     private String getInfoURL = "http://10.0.2.2/isuru_leave/leave_request_list.php";
     private String sendURL = "http://10.0.2.2/isuru_leave/leave_add_approve.php";
 
+    private String approveState;
     public SharedPreferences myPreferences;
     private GridView gridView;
     private Context context;
 
     private String requestID;
+    private String empID;
     private static String USER_NAME;
     private View view;
 
@@ -77,6 +80,7 @@ public class emp_leave_home_lead_requests extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 requestID =((TextView) view.findViewById(R.id.tvRequestID)).getText().toString();
+                empID =((TextView) view.findViewById(R.id.tvFullName)).getText().toString();
 
                 AlertDialog.Builder dialog= new AlertDialog.Builder(context);
                 dialog.setTitle(R.string.alert_title_not_approved);
@@ -84,13 +88,24 @@ public class emp_leave_home_lead_requests extends Fragment {
                 dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        approveState = "OK";
                         new addApproveForRequests().execute();
                     }
                 });
-                dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                dialog.setNeutralButton("REJECT", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+                        approveState = "REJECT";
+                        new addApproveForRequests().execute();
+                    }
+                });
+                dialog.setNegativeButton("HISTORY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getContext(), emp_leave_emp_leave_history.class);
+                        intent.putExtra("empID",empID);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
                     }
                 });
                 dialog.show();
@@ -117,13 +132,15 @@ public class emp_leave_home_lead_requests extends Fragment {
                     org.json.JSONObject list_item = all_list.getJSONObject(i);
                     String listFullName = list_item.getString("empID");
                     if (!USER_NAME.equals(listFullName)) {
-                        String listReason = list_item.getString("reason");
-                        String listType = list_item.getString("leaveType");
-                        String listStartDate = list_item.getString("startDate");
-                        String listEndDate = list_item.getString("endDate");
-                        String listRequestID = list_item.getString("id");
-                        items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listRequestID));
-
+                        String approve = list_item.getString("approve");
+                        if(approve.equals("NOT")){
+                            String listReason = list_item.getString("reason");
+                            String listType = list_item.getString("leaveType");
+                            String listStartDate = list_item.getString("startDate");
+                            String listEndDate = list_item.getString("endDate");
+                            String listRequestID = list_item.getString("id");
+                            items.add(new GridItem(listFullName, listReason, listType, listStartDate, listEndDate, listRequestID));
+                        }
                     }
                     // showMessg(listName);
                 }
@@ -131,7 +148,6 @@ public class emp_leave_home_lead_requests extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
 
             gridView = (GridView) view.findViewById(R.id.gridViewLeaveRequest);
             gridView.setAdapter(new ImageAdapter(this.getActivity(), items));
@@ -152,6 +168,8 @@ public class emp_leave_home_lead_requests extends Fragment {
 
             if((Boolean) jsonObject.get("success")) {
                 Toast.makeText(context, "Successfully Approved", Toast.LENGTH_SHORT).show();
+//                loadGridView(view);
+                gridView.invalidateViews();
                 loadGridView(view);
             }
 
@@ -169,6 +187,7 @@ public class emp_leave_home_lead_requests extends Fragment {
             try {
                 dataJson = URLEncoder.encode("adminName", "UTF-8") + "="+ URLEncoder.encode(USER_NAME, "UTF-8");
                 dataJson += "&" + URLEncoder.encode("id", "UTF-8") + "="+ URLEncoder.encode(requestID, "UTF-8");
+                dataJson += "&" + URLEncoder.encode("state", "UTF-8") + "="+ URLEncoder.encode(approveState, "UTF-8");
 
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
